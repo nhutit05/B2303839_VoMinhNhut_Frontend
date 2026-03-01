@@ -10,11 +10,11 @@ class ContactService {
   }
 
   async create() {
-    return (await this.api.post("/")).data;
+    return (await this.api.post("/", data)).data;
   }
 
   async get(id) {
-    return (await this.api.get(`/{id}`)).data;
+    return (await this.api.get(`/${id}`)).data;
   }
 
   async deleteAll() {
@@ -22,11 +22,11 @@ class ContactService {
   }
 
   async delete(id) {
-    return (await this.api.delete(`/{id}`)).data;
+    return (await this.api.delete(`/${id}`)).data;
   }
 
   async update(id, data) {
-    return (await this.api.put(`/{id}`, data)).data;
+    return (await this.api.put(`/${id}`, data)).data;
   }
 }
 
