@@ -9,7 +9,7 @@ class ContactService {
     return (await this.api.get("/")).data;
   }
 
-  async create() {
+  async create(data) {
     return (await this.api.post("/", data)).data;
   }
 

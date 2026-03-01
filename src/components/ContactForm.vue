@@ -1,67 +1,53 @@
 <template>
-  <Form @submit="submitContact" :validation-schema="contactFormSchema">
+  <Form
+    @submit="submitContact"
+    :validation-schema="contactFormSchema"
+    :initial-values="contact"
+  >
     <div class="form-group">
-      <label for="name">Tên</label>
-      <Field
-        name="name"
-        type="text"
-        class="form-control"
-        v-model="contactLocal.name"
-      />
+      <label>Tên</label>
+      <Field name="name" type="text" class="form-control" />
       <ErrorMessage name="name" class="error-feedback" />
     </div>
+
     <div class="form-group">
-      <label for="email">E-mail</label>
-      <Field
-        name="email"
-        type="email"
-        class="form-control"
-        v-model="contactLocal.email"
-      />
+      <label>E-mail</label>
+      <Field name="email" type="email" class="form-control" />
       <ErrorMessage name="email" class="error-feedback" />
     </div>
+
     <div class="form-group">
-      <label for="address">Địa chỉ</label>
-      <Field
-        name="address"
-        type="text"
-        class="form-control"
-        v-model="contactLocal.address"
-      />
+      <label>Địa chỉ</label>
+      <Field name="address" type="text" class="form-control" />
       <ErrorMessage name="address" class="error-feedback" />
     </div>
+
     <div class="form-group">
-      <label for="phone">Điện thoại</label>
-      <Field
-        name="phone"
-        type="tel"
-        class="form-control"
-        v-model="contactLocal.phone"
-      />
+      <label>Điện thoại</label>
+      <Field name="phone" type="tel" class="form-control" />
       <ErrorMessage name="phone" class="error-feedback" />
     </div>
+
     <div class="form-group form-check">
-      <input
-        name="favorite"
-        type="checkbox"
-        class="form-check-input"
-        v-model="contactLocal.favorite"
-      />
-      <label for="favorite" class="form-check-label">
+      <Field name="favorite" type="checkbox" class="form-check-input" />
+      <label class="form-check-label">
         <strong>Liên hệ yêu thích</strong>
       </label>
     </div>
-    <div class="form-group">
-      <button class="btn btn-primary">Lưu</button>
+
+    <div class="form-group mt-3">
+      <button type="submit" class="btn btn-primary">Lưu</button>
+
       <button
-        v-if="contactLocal._id"
+        v-if="contact._id"
         type="button"
         class="ml-2 btn btn-danger"
-        @click="deleteContact"
+        @click="$emit('delete:contact', contact._id)"
       >
         Xóa
       </button>
-      <button type="button" class="ml-2 btn btn-danger" @click="Cancel">
+
+      <button type="button" class="ml-2 btn btn-secondary" @click="Cancel">
         Thoát
       </button>
     </div>
@@ -103,13 +89,15 @@ export default {
     return {
       // Chúng ta sẽ không muốn hiệu chỉnh props, nên tạo biến cục bộ
       // contactLocal để liên kết với các input trên form
-      contactLocal: this.contact,
+      //   contactLocal: this.contact,
       contactFormSchema,
     };
   },
   methods: {
-    submitContact() {
-      this.$emit("submit:contact", this.contactLocal);
+    submitContact(values) {
+      console.log("VALUES:", values); // kiểm tra
+
+      this.$emit("submit:contact", values);
     },
     deleteContact() {
       this.$emit("delete:contact", this.contactLocal.id);
